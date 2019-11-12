@@ -1,0 +1,26 @@
+<%= form_with(model: employee,url: url,id: 'employee_form', local: true) do |form| %>
+  <% if employee.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <ul>
+      <% employee.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <%= form.label :first_name,'First Name' %>
+    <%= form.text_field :first_name,class: 'form-control',placholder: 'Enter First Name' %>
+  </div>
+  <div class="form-group">
+    <%= form.label :last_name,'Last Name' %>
+    <%= form.text_field :last_name,class: 'form-control',placholder: 'Enter Last Name' %>
+  </div>
+  <div class="form-group">
+    <%= form.label :email,'Email' %>
+    <%= form.email_field :email,class: 'form-control',placholder: 'Enter Email' %>
+  </div>
+  <div class="form-group">
+    <%= form.submit 'Submit',class: 'btn btn-sm btn-success'%>
+  </div>
+<% end %>

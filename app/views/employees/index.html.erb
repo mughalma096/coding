@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header"><h1>Employees</h1></div>
+      <div class="card-body">
+        <table class="table table-bordered table-striped">
+          <thead>
+          <tr>
+            <th>Sr #</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th colspan="3">Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @employees.each_with_index  do |employee,index| %>
+            <tr>
+              <td><%=index+1 %></td>
+              <td><%=employee&.first_name %></td>
+              <td><%=employee&.last_name %></td>
+              <td><%=employee&.email %></td>
+              <td><%= link_to '<i class="fas fa-eye"></i>'.html_safe, employee_path(employee),class: 'btn btn-sm btn-secondary' %></td>
+              <td><%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_employee_path(employee),class: 'btn btn-sm btn-warning' %></td>
+              <td><%= link_to '<i class="fas fa-trash"></i>'.html_safe, employee_path(employee), method: :delete, data: { confirm: 'Are you sure?' },class: 'btn btn-sm btn-danger'%></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer">
+      </div>
+    </div>
+  </div>
+</div>

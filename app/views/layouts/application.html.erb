@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Coding</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <style>
+      .padding{
+        padding-left: 2%!important;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <%=render partial: 'layouts/navbar' %>
+    </div>
+    <div class="container">
+      <% if params[:notice].present? %>
+        <div id="notice" class="notice alert alert-success" role="alert">
+          <%= params[:notice] %>
+        </div>
+      <% end %>
+      <% if alert %>
+        <div class="alert alert-danger" role="alert">
+          <%= alert %>
+        </div>
+      <% end %>
+      <%= yield %>
+    </div>
+  </body>
+  <script>
+      $(document).ready(function() {
+          // show the alert
+          setTimeout(function() {
+              $(".alert").alert('close');
+          }, 2000);
+
+          jQuery.validator.addMethod("lettersonly", function(value, element) {
+              return this.optional(element) || /^[a-z]+$/i.test(value);
+          }, "Letters only please");
+
+          $('#employee_form').validate({ // initialize the plugin
+              rules: {
+                  'user[first_name]': {
+                      required: true,
+                      minlength: 3,
+                      maxlength: 20,
+                      lettersonly: true
+                  },
+                  'user[last_name]': {
+                      required: true,
+                      minlength: 3,
+                      maxlength: 20,
+                      lettersonly: true
+                  },
+                  'user[email]': {
+                      required: true,
+                      email: true
+                  }
+              },
+              messages :{
+                  'user[first_name]' : {
+                      required : 'Enter First Name',
+                  },
+                  'user[last_name]' : {
+                      required : 'Enter Last Name',
+                  },
+                  'user[email]': {
+                      required: 'Enter Email'
+                  }
+              }
+          });
+      });
+  </script>
+</html>
